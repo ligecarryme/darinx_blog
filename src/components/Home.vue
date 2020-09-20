@@ -18,10 +18,11 @@
               background-color="#303643"
               text-color="#D8D8D8"
               active-text-color="#ffffff"
+              router
             >
-              <el-menu-item index="blog">博客管理</el-menu-item>
-              <el-menu-item index="label">标签管理</el-menu-item>
-              <el-menu-item index="classify">分类管理</el-menu-item>
+              <el-menu-item index="blog" route="/bloglist">博客管理</el-menu-item>
+              <el-menu-item index="label" route="/labellist">标签管理</el-menu-item>
+              <el-menu-item index="classify" route="/classifylist">分类管理</el-menu-item>
             </el-menu>
           </div>
         </div>
@@ -85,10 +86,14 @@
 export default {
   data() {
     return {
-      activeIndexheader: "blog",
-      activeIndexAside: "/bloglist",
-      sideBarid: "blog",
+      activeIndexheader: "blog", // 
+      activeIndexAside: "/bloglist", // 
+      sideBarid: "blog" //
     };
+  },
+  mounted() {
+    this.activeIndexheader = this.$route.name;
+    this.sideBarid = this.$route.name;
   },
   methods: {
     logout() {
@@ -97,7 +102,7 @@ export default {
     },
     handleSelect(key, keyPath) {
       this.sideBarid = keyPath;
-      // console.log(key, keyPath);
+      console.log(key,keyPath);
       // console.log(this.sideBarid);
     },
   },

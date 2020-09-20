@@ -25,13 +25,13 @@ const router = new Router({
             component: Home,
             redirect: '/welcome',
             children: [
-                { path: '/welcome', component: Welcome },
-                { path: '/bloglist', component: BlogList },
-                { path: '/blogpublish', component: BlogPublish },
-                { path: '/classifylist', component: ClassifyList },
-                { path: '/classifyadd', component: ClassifyAdd },
-                { path: '/labellist', component: LabelList },
-                { path: '/labeladd', component: LabelAdd }
+                { path: '/welcome', component: Welcome,name: 'blog' },
+                { path: '/bloglist', component: BlogList, name: 'blog' },
+                { path: '/blogpublish', component: BlogPublish, name: 'blog' },
+                { path: '/classifylist', component: ClassifyList,name: 'classify' },
+                { path: '/classifyadd', component: ClassifyAdd, name: 'classify'},
+                { path: '/labellist', component: LabelList ,name: 'label'},
+                { path: '/labeladd', component: LabelAdd ,name: 'label'}
             ]
         }
     ]

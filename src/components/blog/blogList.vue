@@ -13,8 +13,8 @@
           <el-col :xs="24" :sm="16" :md="12" :lg="8">
             <el-input placeholder="请输入内容" class="input-with-select" v-model="input" clearable>
               <el-select v-model="select" slot="prepend" placeholder="请选择">
-                <el-option label="餐厅名" value="1"></el-option>
-                <el-option label="订单号" value="2"></el-option>
+                <el-option label="练习清单" value="1"></el-option>
+                <el-option label="基础知识" value="2"></el-option>
               </el-select>
               <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
@@ -24,7 +24,7 @@
       <!-- 博客列表 -->
       <div class="bloglisttable">
         <el-table :data="tableData" stripe border style="width: 100%">
-          <el-table-column type="index" label="ID"></el-table-column>
+          <el-table-column type="index"></el-table-column>
           <el-table-column prop="title" label="标题"></el-table-column>
           <el-table-column prop="recommend" label="推荐" width="50px;"></el-table-column>
           <el-table-column prop="status" label="状态" width="50px;"></el-table-column>
