@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list_container">
     <!-- 面包屑导航区域 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
@@ -58,30 +58,30 @@
 export default {
   data() {
     return {
-      select: "",
-      input: "",
+      select: '',
+      input: '',
       pagenum: 1,
       tableData: [
         {
-          title: "Java实战",
-          recommend: "是",
-          status: "草稿",
-          date: "2020-9-19 17：33",
+          title: 'Java实战',
+          recommend: '是',
+          status: '草稿',
+          date: '2020-9-19 17：33',
         },
         {
-          title: "JavaScript实战",
-          recommend: "是",
-          status: "正文",
-          date: "2020-9-19 21：00",
+          title: 'JavaScript实战',
+          recommend: '是',
+          status: '正文',
+          date: '2020-9-19 21：00',
         },
         {
-          title: "VUE实战",
-          recommend: "是",
-          status: "正文",
-          date: "2020-9-19 21：10",
+          title: 'VUE实战',
+          recommend: '是',
+          status: '正文',
+          date: '2020-9-19 21：10',
         },
       ],
-    };
+    }
   },
   methods: {
     // async getBlogList() {
@@ -94,13 +94,13 @@ export default {
     //   console.log(res);
     // },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      console.log(`当前页: ${val}`)
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>

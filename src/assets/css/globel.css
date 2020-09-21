@@ -1,15 +1,21 @@
 html,
 body,
-#app{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+#app {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
-.el-breadcrumb{
-    margin-bottom: 10px;
+.el-breadcrumb {
+  margin-bottom: 10px;
 }
-.el-card{
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+.el-card {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+.add_container {
+  margin: 0.5em 1em;
+}
+.list_container {
+  margin: 0.5em 1em;
 }

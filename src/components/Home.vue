@@ -86,30 +86,33 @@
 export default {
   data() {
     return {
-      activeIndexheader: "blog", // 
-      activeIndexAside: "/bloglist", // 
-      sideBarid: "blog" //
-    };
+      activeIndexheader: 'blog', //
+      activeIndexAside: '/bloglist', //
+      sideBarid: 'blog', //
+    }
   },
   mounted() {
-    this.activeIndexheader = this.$route.name;
-    this.sideBarid = this.$route.name;
+    this.activeIndexheader = this.$route.name
+    this.sideBarid = this.$route.name
   },
   methods: {
     logout() {
       // window.sessionStorage.clear();
-      this.$router.push("/login");
+      this.$router.push('/login')
     },
     handleSelect(key, keyPath) {
-      this.sideBarid = keyPath;
-      console.log(key,keyPath);
+      this.sideBarid = keyPath
+      console.log(key, keyPath)
       // console.log(this.sideBarid);
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
+.el-main {
+  background: url('../assets/bg.png');
+}
 .el-menu-demo {
   height: 60px !important;
 }
@@ -119,7 +122,7 @@ export default {
   height: 60px;
   padding-left: 1em;
 }
-.menu-header{
+.menu-header {
   overflow: hidden;
 }
 .el-container {

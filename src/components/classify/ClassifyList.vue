@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list_container">
     <el-card>
       <el-table :data="tableData" border stripe style="width: 100%">
         <el-table-column type="index" label="ID"></el-table-column>
@@ -24,23 +24,23 @@ export default {
       visible: false,
       tableData: [
         {
-          classifyname: "练习清单",
+          classifyname: '练习清单',
         },
         {
-          classifyname: "基础知识学习",
+          classifyname: '基础知识学习',
         },
       ],
-    };
+    }
   },
   methods: {
     editclassify() {
-      this.$message("编辑信息");
+      this.$message('编辑信息')
     },
     delclassify() {
-      this.$message("删除信息");
+      this.$message('删除信息')
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
