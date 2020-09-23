@@ -14,7 +14,7 @@
               :default-active="activeIndexheader"
               class="el-menu-demo"
               mode="horizontal"
-              @select="handleSelect"
+              @select="handleSelectVertical"
               background-color="#303643"
               text-color="#D8D8D8"
               active-text-color="#ffffff"
@@ -40,6 +40,7 @@
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"
+            @select="handleSelectHorizontal"
             router
           >
             <div v-if="sideBarid == 'blog'">
@@ -100,11 +101,16 @@ export default {
       // window.sessionStorage.clear();
       this.$router.push('/login')
     },
-    handleSelect(key, keyPath) {
+    handleSelectVertical(key, keyPath) {
       this.sideBarid = keyPath
-      console.log(key, keyPath)
+      // this.handleSelectHorizontal()
+      console.log('Vertical'+ key, keyPath)
       // console.log(this.sideBarid);
     },
+    handleSelectHorizontal(key,keyPath){
+      // this.activeIndexAside = keyPath;
+      console.log('Horizontal'+key,keyPath)
+    }
   },
 }
 </script>

@@ -8,22 +8,35 @@
     </el-input>
     <el-input
       type="textarea"
-      :autosize="{ minRows: 2, maxRows: 4}"
+      :autosize="{ minRows: 8 }"
       placeholder="请输入内容"
       v-model="textarea"
       style="margin-top:1em;"
     ></el-input>
-    <div class="tagsandclassify">
-      <el-input placeholder="请输入内容" v-model="tagsinput">
+    <div class="tagsandclassify pt-1">
+      <el-input placeholder="请输入内容" v-model="tagsinput" style="width:50%">
         <template slot="prepend">分类</template>
       </el-input>
-      <el-input placeholder="请输入内容" v-model="classifyinput">
+      <el-input placeholder="请输入内容" v-model="classifyinput" style="width:50%">
         <template slot="prepend">标签</template>
       </el-input>
     </div>
-    <el-input placeholder="请输入内容" v-model="classifyinput">
+    <el-input placeholder="请输入内容" v-model="classifyinput" class="pt-1">
       <template slot="prepend">首图</template>
     </el-input>
+    <div class="pt-1">
+      <el-checkbox-group v-model="checkList">
+        <el-checkbox label="推荐"></el-checkbox>
+        <el-checkbox label="转载声明"></el-checkbox>
+        <el-checkbox label="赞赏"></el-checkbox>
+        <el-checkbox label="评论"></el-checkbox>
+      </el-checkbox-group>
+    </div>
+    <el-row class="btns pt-1">
+      <el-button type="info" size="small">返回</el-button>
+      <el-button type="primary" size="small">保存</el-button>
+      <el-button type="success" size="small">发布</el-button>
+    </el-row>
   </div>
 </template>
 
@@ -36,6 +49,7 @@ export default {
       textarea: '',
       tagsinput: '',
       classifyinput: '',
+      checkList: ['推荐'],
     }
   },
 }
@@ -47,6 +61,8 @@ export default {
 }
 .tagsandclassify {
   display: flex;
-  margin-top: 1em;
+}
+.btns{
+  float: right;
 }
 </style>
