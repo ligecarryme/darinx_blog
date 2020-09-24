@@ -1,23 +1,31 @@
 <template>
   <div class="add_container">
+    <!-- 面包屑导航区域 -->
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>博客发布</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-input placeholder="请输入标题" v-model="input" class="input-with-select">
       <el-select v-model="select" slot="prepend" placeholder="请选择">
         <el-option label="原创" value="1"></el-option>
         <el-option label="转载" value="2"></el-option>
       </el-select>
     </el-input>
-    <el-input
+    <!-- <el-input
       type="textarea"
       :autosize="{ minRows: 8 }"
-      placeholder="请输入内容"
+      placeholder="请输入博客内容"
       v-model="textarea"
       style="margin-top:1em;"
-    ></el-input>
+    ></el-input> -->
+    <div class="editorMd pt-1">
+       <mavon-editor :ishljs="true" v-model="textarea" style="min-height:500px"></mavon-editor>
+    </div>
     <div class="tagsandclassify pt-1">
-      <el-input placeholder="请输入内容" v-model="tagsinput" style="width:50%">
+      <el-input placeholder="请输入内容" v-model="tagsinput" style="width:49%">
         <template slot="prepend">分类</template>
       </el-input>
-      <el-input placeholder="请输入内容" v-model="classifyinput" style="width:50%">
+      <el-input placeholder="请输入内容" v-model="classifyinput" style="width:49%">
         <template slot="prepend">标签</template>
       </el-input>
     </div>
@@ -61,8 +69,9 @@ export default {
 }
 .tagsandclassify {
   display: flex;
+  justify-content: space-between;
 }
-.btns{
+.btns {
   float: right;
 }
 </style>

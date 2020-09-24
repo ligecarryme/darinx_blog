@@ -18,11 +18,11 @@
               background-color="#303643"
               text-color="#D8D8D8"
               active-text-color="#ffffff"
-              router
             >
-              <el-menu-item index="blog" route="/bloglist">博客管理</el-menu-item>
-              <el-menu-item index="label" route="/labellist">标签管理</el-menu-item>
-              <el-menu-item index="classify" route="/classifylist">分类管理</el-menu-item>
+              <!--router  route="/bloglist"  route="/labellist" route="/classifylist" -->
+              <el-menu-item index="blog">博客管理</el-menu-item>
+              <el-menu-item index="label">标签管理</el-menu-item>
+              <el-menu-item index="classify">分类管理</el-menu-item>
             </el-menu>
           </div>
         </div>
@@ -75,6 +75,7 @@
             </div>
           </el-menu>
         </el-aside>
+        <!-- 主体 -->
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -87,13 +88,25 @@
 export default {
   data() {
     return {
-      activeIndexheader: 'blog', //
-      activeIndexAside: '/bloglist', //
-      sideBarid: 'blog', //
+      activeIndexheader: 'blog',
+      activeIndexAside: '/bloglist',
+      sideBarid: 'blog',
     }
+  },
+  computed: {
+    // activeIndexAside() {
+    //   const route = this.$route
+    //   console.log(route)
+    //   const { meta, path } = route
+    //   if(meta.activeMenu){
+    //     return meta.activeMenu
+    //   }
+    //   return path
+    // },
   },
   mounted() {
     this.activeIndexheader = this.$route.name
+    this.activeIndexAside = this.$route.path
     this.sideBarid = this.$route.name
   },
   methods: {
@@ -103,14 +116,12 @@ export default {
     },
     handleSelectVertical(key, keyPath) {
       this.sideBarid = keyPath
-      // this.handleSelectHorizontal()
-      console.log('Vertical'+ key, keyPath)
-      // console.log(this.sideBarid);
+      console.log('Vertical' + key, keyPath)
     },
-    handleSelectHorizontal(key,keyPath){
+    handleSelectHorizontal(key, keyPath) {
       // this.activeIndexAside = keyPath;
-      console.log('Horizontal'+key,keyPath)
-    }
+      console.log('Horizontal' + key, keyPath)
+    },
   },
 }
 </script>

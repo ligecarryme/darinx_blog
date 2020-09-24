@@ -1,5 +1,10 @@
 <template>
   <div class="add_container">
+    <!-- 面包屑导航区域 -->
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>添加分类</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-input clearable placeholder="请输入内容" v-model="input">
       <template slot="prepend">分类名称：</template>
     </el-input>

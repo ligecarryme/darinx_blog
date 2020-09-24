@@ -8,19 +8,17 @@
     <!-- 卡片视图区域 -->
     <el-card>
       <!-- 搜索添加区域 -->
-      <div style="margin-top: 10px;">
-        <el-row>
-          <el-col :xs="24" :sm="16" :md="12" :lg="8">
-            <el-input placeholder="请输入内容" class="input-with-select" v-model="input" clearable>
-              <el-select v-model="select" slot="prepend" placeholder="请选择">
-                <el-option label="练习清单" value="1"></el-option>
-                <el-option label="基础知识" value="2"></el-option>
-              </el-select>
-              <el-button slot="append" icon="el-icon-search"></el-button>
-            </el-input>
-          </el-col>
-        </el-row>
-      </div>
+      <el-row>
+        <el-col :xs="24" :sm="16" :md="12" :lg="8">
+          <el-input placeholder="请输入内容" class="input-with-select" v-model="input" clearable>
+            <el-select v-model="select" slot="prepend" placeholder="请选择">
+              <el-option label="练习清单" value="1"></el-option>
+              <el-option label="基础知识" value="2"></el-option>
+            </el-select>
+            <el-button slot="append" icon="el-icon-search"></el-button>
+          </el-input>
+        </el-col>
+      </el-row>
       <!-- 博客列表 -->
       <div class="bloglisttable">
         <el-table :data="tableData" stripe border style="width: 100%">
