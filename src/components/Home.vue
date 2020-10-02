@@ -89,25 +89,17 @@ export default {
   data() {
     return {
       activeIndexheader: 'blog',
-      activeIndexAside: '/bloglist',
+      activeIndexAside: '',
       sideBarid: 'blog',
     }
   },
-  computed: {
-    // activeIndexAside() {
-    //   const route = this.$route
-    //   console.log(route)
-    //   const { meta, path } = route
-    //   if(meta.activeMenu){
-    //     return meta.activeMenu
-    //   }
-    //   return path
-    // },
-  },
+  computed: {},
   mounted() {
     this.activeIndexheader = this.$route.name
     this.activeIndexAside = this.$route.path
-    this.sideBarid = this.$route.name
+    if (this.$route.name !== undefined) {
+      this.sideBarid = this.$route.name
+    }
   },
   methods: {
     logout() {
