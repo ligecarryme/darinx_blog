@@ -6,14 +6,7 @@
         <img src="../assets/logo.png" alt />
       </div>
       <!-- form -->
-      <el-form
-        label-position="right"
-        label-width="80px"
-        class="login_form"
-        :model="loginForm"
-        :rules="logingFormRules"
-        ref="loginFormRef"
-      >
+      <el-form label-position="right" label-width="80px" class="login_form" :model="loginForm" :rules="logingFormRules" ref="loginFormRef">
         <el-form-item prop="username" label="用户名：">
           <el-input prefix-icon="el-icon-user-solid" v-model="loginForm.username" clearable></el-input>
         </el-form-item>
@@ -35,42 +28,34 @@ export default {
     return {
       loginForm: {
         username: "admin",
-        password: "111111",
+        password: "123456",
       },
       logingFormRules: {
         username: [
-          { message: "请输入用户名", trigger: "blur" },
-          {
-            min: 3,
-            max: 10,
-            message: "长度在 3 到 10 个字符",
-            trigger: "blur",
-          },
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 3, max: 10, message: "长度在 3 到 10 个字符", trigger: "blur"},
         ],
         password: [
-          { message: "请输入密码", trigger: "blur" },
-          {
-            min: 6,
-            max: 15,
-            message: "长度在 6 到 15 个字符",
-            trigger: "blur",
-          },
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { min: 6, max: 15, message: "长度在 6 到 15 个字符", trigger: "blur"},
         ],
       },
     };
   },
   methods: {
     resetLoginForm() {
-      // console.log(this);
       this.$refs.loginFormRef.resetFields();
     },
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
-        // console.log(valid);
         if (!valid) return;
-        // const { data: res } = await this.$http.post("longin", this.loginForm);
-        // if (res.meta.status !== 404) return this.$message.error('登录失败');
-        // this.$message.success('登陆成功');
+        const { data: res } = await this.$axios.post("/login", this.loginForm);
+        if (res.code !== 200) {
+          return this.$message.error('用户名或密码错误');
+        }
+        console.log(res)
+        window.sessionStorage.setItem('token',res.message);
+        this.$message.success('登陆成功');
         this.$message({
           type: "success",
           message: "登录成功",

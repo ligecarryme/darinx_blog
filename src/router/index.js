@@ -33,16 +33,19 @@ const router = new Router({
                 { path: '/labellist', component: LabelList ,name: 'label' ,meta:{activeMenu:'/labellist'}},
                 { path: '/labeladd', component: LabelAdd ,name: 'label' ,meta:{activeMenu:'/labeladd'}}
             ]
+        },
+        {
+            path:'*', redirect:'/'
         }
     ]
 })
 
 // 路由导航守卫
-// router.beforeEach((to, from, next) => {
-//     if (to.path === '/login') return next()
-//     const tokenStr = window.sessionStorage.getItem('token')
-//     if (!tokenStr) return next('/login')
-//     next()
-// })
+router.beforeEach((to, from, next) => {
+    if (to.path === '/login') return next();
+    const tokenStr = window.sessionStorage.getItem('token');
+    if (!tokenStr) return next('/login');
+    next();
+})
 
 export default router

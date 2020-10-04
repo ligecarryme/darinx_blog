@@ -103,8 +103,10 @@ export default {
   },
   methods: {
     logout() {
-      // window.sessionStorage.clear();
-      this.$router.push('/login')
+      this.$axios.get("/logout");
+      window.sessionStorage.clear();
+      this.$message.success('注销成功');
+      this.$router.push('/login');
     },
     handleSelectVertical(key, keyPath) {
       this.sideBarid = keyPath

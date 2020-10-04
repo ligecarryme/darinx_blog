@@ -8,9 +8,7 @@ import './assets/css/globel.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-import axios from 'axios'
-axios.defaults.baseURL = "localhost"
-Vue.prototype.$http = axios
+import './utils/request.js'
 
 Vue.config.productionTip = false
 Vue.use(Element)
