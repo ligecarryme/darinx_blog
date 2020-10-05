@@ -53,7 +53,6 @@ export default {
         if (res.code !== 200) {
           return this.$message.error('用户名或密码错误');
         }
-        console.log(res)
         window.sessionStorage.setItem('token',res.message);
         this.$message.success('登陆成功');
         this.$message({

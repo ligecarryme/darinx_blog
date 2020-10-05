@@ -7,16 +7,16 @@
     </el-breadcrumb>
     <el-card>
       <el-table :data="tableData" border stripe style="width: 100%">
-        <el-table-column type="index" label="ID"></el-table-column>
-        <el-table-column prop="classifyname" label="名称"></el-table-column>
+        <el-table-column prop="id" label="ID" width="80"></el-table-column>
+        <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column label="操作">
           <el-button type="primary" icon="el-icon-edit" size="mini" @click="editclassify">编辑</el-button>
           <el-button type="danger" icon="el-icon-delete" size="mini" @click="delclassify">删除</el-button>
         </el-table-column>
       </el-table>
       <div class="block">
-        <el-pagination layout="prev, pager, next" :total="20" :hide-on-single-page="true"></el-pagination>
-        <el-button type="success" plain size="small">新增</el-button>
+        <el-pagination @current-change="handleCurrentChange" layout="total, prev, pager, next" :total="pagger.total" :hide-on-single-page="true"></el-pagination>
+        <el-button type="success" plain size="small" @click="addNew">新增</el-button>
       </div>
     </el-card>
   </div>
@@ -26,16 +26,18 @@
 export default {
   data() {
     return {
-      visible: false,
+      pagger:{
+        current:1,
+        size: 8,
+        total: 0
+      },
       tableData: [
-        {
-          classifyname: '练习清单',
-        },
-        {
-          classifyname: '基础知识学习',
-        },
+        { id:'1' ,name: '基础知识学习'}
       ],
     }
+  },
+  created() {
+    this.getList();
   },
   methods: {
     editclassify() {
@@ -44,7 +46,25 @@ export default {
     delclassify() {
       this.$message('删除信息')
     },
-  },
+    getList() {
+      let that = this;
+      const pageParam = that.pagger;
+      this.$axios.post('/typeslist',pageParam).then((response)=>{
+        const {data} = response;
+        that.tableData = data.data.content;
+        that.pagger.total = data.data.totalElements;
+      }).catch((error)=>{
+        console.log(error)
+      })
+    },
+    addNew(){
+      this.$router.push('/classifyadd');
+    },
+    handleCurrentChange(val){
+      this.pagger.current = val;
+      this.getList();
+    }
+  }
 }
 </script>
 
