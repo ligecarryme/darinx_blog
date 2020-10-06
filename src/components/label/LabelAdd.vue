@@ -5,11 +5,11 @@
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>添加标签</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-input clearable placeholder="请输入内容" v-model="input">
+    <el-input clearable placeholder="请输入内容" v-model="input.name">
       <template slot="prepend">标签名称：</template>
     </el-input>
     <div class="btns">
-      <el-button type="info" size="small">返回</el-button>
+      <el-button type="info" size="small" @click="backtolist">返回</el-button>
       <el-button type="success" size="small">提交</el-button>
     </div>
   </div>
@@ -17,11 +17,26 @@
 
 <script>
 export default {
+  inject:['reload'],
   data() {
     return {
-      input: '',
+      input: {
+        id: 0,
+        name: ''
+      },
+      pagger: {
+        current: 1,
+        size: 0,
+        total: 0
+      }
     }
   },
+  methods:{
+    backtolist(){
+      this.$router.push('/labellist');
+      this.reload();
+    }
+  }
 }
 </script>
 

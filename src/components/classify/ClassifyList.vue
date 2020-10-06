@@ -10,12 +10,14 @@
         <el-table-column prop="id" label="ID" width="80"></el-table-column>
         <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column label="操作">
-          <el-button type="primary" icon="el-icon-edit" size="mini" @click="editclassify">编辑</el-button>
-          <el-button type="danger" icon="el-icon-delete" size="mini" @click="delclassify">删除</el-button>
+          <template v-slot='scope'>
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="editclassify(scope.$index, scope.row)">编辑</el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="delclassify(scope.$index, scope.row)">删除</el-button>
+          </template>
         </el-table-column>
       </el-table>
       <div class="block">
-        <el-pagination @current-change="handleCurrentChange" layout="total, prev, pager, next" :total="pagger.total" :hide-on-single-page="true"></el-pagination>
+        <el-pagination :page-size="8" @current-change="handleCurrentChange" layout="total, prev, pager, next" :total="pagger.total"></el-pagination>
         <el-button type="success" plain size="small" @click="addNew">新增</el-button>
       </div>
     </el-card>
@@ -24,15 +26,16 @@
 
 <script>
 export default {
+  inject:['reload'],
   data() {
     return {
-      pagger:{
-        current:1,
+      pagger: {
+        current: 1,
         size: 8,
         total: 0
       },
       tableData: [
-        { id:'1' ,name: '基础知识学习'}
+        { id: '1', name: '基础知识学习' }
       ],
     }
   },
@@ -40,27 +43,44 @@ export default {
     this.getList();
   },
   methods: {
-    editclassify() {
-      this.$message('编辑信息')
+    editclassify(index, row) {
+      // console.log(index, row);
+      this.$router.push({ name: 'classifyadd', params: { id: row.id, name: row.name }})
+      this.$message('编辑分类名称');
+      this.reload();
     },
-    delclassify() {
-      this.$message('删除信息')
+    delclassify(index, row) {
+      let that = this;
+      // console.log(index, row);
+      this.$axios.get('/deletetype/' + row.id)
+        .then((response) => {
+          const { data } = response;
+          if (data.code === 200) {
+            that.tableData.splice(index, 1);
+            this.$message.success('删除成功');
+          } else {
+            this.$message.error('删除失败')
+          }
+        }).catch((error) => {
+          console.log(error);
+        })
     },
     getList() {
       let that = this;
       const pageParam = that.pagger;
-      this.$axios.post('/typeslist',pageParam).then((response)=>{
-        const {data} = response;
+      this.$axios.post('/typeslist', pageParam).then((response) => {
+        const { data } = response;
         that.tableData = data.data.content;
         that.pagger.total = data.data.totalElements;
-      }).catch((error)=>{
+      }).catch((error) => {
         console.log(error)
       })
     },
-    addNew(){
+    addNew() {
       this.$router.push('/classifyadd');
+      this.reload();
     },
-    handleCurrentChange(val){
+    handleCurrentChange(val) {
       this.pagger.current = val;
       this.getList();
     }

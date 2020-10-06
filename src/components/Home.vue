@@ -32,7 +32,7 @@
         </div>
       </el-header>
       <el-container>
-        <!-- 侧边栏 -->
+        <!-- 侧边栏 @select="handleSelectHorizontal"-->
         <el-aside style="width:220px;">
           <el-menu
             :default-active="activeIndexAside"
@@ -40,10 +40,9 @@
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"
-            @select="handleSelectHorizontal"
             router
           >
-            <div v-if="sideBarid == 'blog'">
+            <div v-show="sideBarid == 'blog'">
               <el-menu-item index="/bloglist">
                 <i class="el-icon-tickets"></i>
                 <span>博客列表</span>
@@ -53,7 +52,7 @@
                 <span>博客发布</span>
               </el-menu-item>
             </div>
-            <div v-else-if="sideBarid == 'label'">
+            <div v-show="sideBarid == 'label'">
               <el-menu-item index="/labellist">
                 <i class="el-icon-collection"></i>
                 <span>标签列表</span>
@@ -63,7 +62,7 @@
                 <span>标签新增</span>
               </el-menu-item>
             </div>
-            <div v-else>
+            <div v-show="sideBarid == 'classify'">
               <el-menu-item index="/classifylist">
                 <i class="el-icon-receiving"></i>
                 <span>分类列表</span>
@@ -95,11 +94,9 @@ export default {
   },
   computed: {},
   mounted() {
-    this.activeIndexheader = this.$route.name
-    this.activeIndexAside = this.$route.path
-    if (this.$route.name !== undefined) {
-      this.sideBarid = this.$route.name
-    }
+    this.activeIndexheader = this.$route.meta.mountMenu;
+    this.activeIndexAside = this.$route.path;
+    this.sideBarid = this.$route.meta.mountMenu;
   },
   methods: {
     logout() {
@@ -110,12 +107,12 @@ export default {
     },
     handleSelectVertical(key, keyPath) {
       this.sideBarid = keyPath
-      console.log('Vertical' + key, keyPath)
+      // console.log('Vertical' + key, keyPath)
     },
-    handleSelectHorizontal(key, keyPath) {
-      // this.activeIndexAside = keyPath;
-      console.log('Horizontal' + key, keyPath)
-    },
+    // handleSelectHorizontal(key, keyPath) {
+    //   this.activeIndexAside = keyPath;
+    //   console.log('Horizontal' + key, keyPath)
+    // },
   },
 }
 </script>

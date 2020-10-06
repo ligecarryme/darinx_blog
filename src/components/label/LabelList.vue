@@ -7,16 +7,18 @@
     </el-breadcrumb>
     <el-card>
       <el-table :data="tableData" border stripe style="width: 100%">
-        <el-table-column type="index" label="ID"></el-table-column>
-        <el-table-column prop="classifyname" label="名称"></el-table-column>
+        <el-table-column type="index" prop="id" label="ID"></el-table-column>
+        <el-table-column prop="tagname" label="名称"></el-table-column>
         <el-table-column label="操作">
-          <el-button type="primary" icon="el-icon-edit" size="mini" @click="editclassify">编辑</el-button>
-          <el-button type="danger" icon="el-icon-delete" size="mini" @click="delclassify">删除</el-button>
+          <template v-slot='scope'>
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="edittag(scope.$index, scope.row)">编辑</el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deltag(scope.$index, scope.row)">删除</el-button>
+          </template>
         </el-table-column>
       </el-table>
       <div class="block">
-        <el-pagination layout="prev, pager, next" :total="20" :hide-on-single-page="true"></el-pagination>
-        <el-button type="success" plain size="small">新增</el-button>
+        <el-pagination :page-size="8" @current-change="handleCurrentChange" layout="total, prev, pager, next" :total="pagger.total"></el-pagination>
+        <el-button type="success" plain size="small" @click="addNew">新增</el-button>
       </div>
     </el-card>
   </div>
@@ -24,35 +26,33 @@
 
 <script>
 export default {
+  inject:['reload'],
   data() {
     return {
-      visible: false,
+      pagger:{
+        current: 1,
+        size: 8,
+        total: 0
+      },
       tableData: [
-        {
-          classifyname: 'Java',
-        },
-        {
-          classifyname: 'ES6',
-        },
-        {
-          classifyname: 'HTML',
-        },
-        {
-          classifyname: 'CSS',
-        },
-        {
-          classifyname: 'algorithm',
-        },
+        { id: 1, tagname: 'Java' },
+        { id: 2, tagname: 'JavaScript' }
       ],
     }
   },
   methods: {
-    editclassify() {
-      this.$message('编辑信息')
+    edittag(index, row) {
+      console.log(index,row);
+      this.$message('编辑信息');
     },
-    delclassify() {
+    deltag(index, row) {
+      console.log(index,row);
       this.$message('删除信息')
     },
+    addNew(){
+      this.$router.push('/labeladd');
+      this.reload();
+    }
   },
 }
 </script>
