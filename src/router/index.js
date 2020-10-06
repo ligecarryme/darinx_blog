@@ -25,7 +25,7 @@ const router = new Router({
             component: Home,
             redirect: '/welcome',
             children: [
-                { path: '/welcome', component: Welcome },
+                { path: '/welcome', component: Welcome,name:'welcome',meta:{mountMenu:'blog'} },
                 { path: '/bloglist', component: BlogList, name: 'bloglist' ,meta:{mountMenu:'blog'}},
                 { path: '/blogpublish', component: BlogPublish, name: 'blogpublish' ,meta:{mountMenu:'blog'}},
                 { path: '/classifylist', component: ClassifyList,name: 'classifylist' ,meta:{mountMenu:'classify'}},

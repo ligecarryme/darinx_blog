@@ -26,10 +26,10 @@
 
 <script>
 export default {
-  inject:['reload'],
+  inject: ['reload'],
   data() {
     return {
-      pagger:{
+      pagger: {
         current: 1,
         size: 8,
         total: 0
@@ -40,18 +40,35 @@ export default {
       ],
     }
   },
+  created() {
+    this.getTagList();
+  },
   methods: {
     edittag(index, row) {
-      console.log(index,row);
+      console.log(index, row);
       this.$message('编辑信息');
     },
     deltag(index, row) {
-      console.log(index,row);
+      console.log(index, row);
       this.$message('删除信息')
     },
-    addNew(){
+    addNew() {
       this.$router.push('/labeladd');
       this.reload();
+    },
+    getTagList() {
+      const { current } = this.pagger;
+      this.$axios.get('/tagslist', {
+        params: {
+          currentPageNum: current
+        }
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   },
 }

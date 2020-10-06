@@ -49,7 +49,9 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return;
-        const { data: res } = await this.$axios.post("/login", this.loginForm);
+        const { data: res } = await this.$axios.post("/login", this.loginForm).catch((error)=>{
+          console.log(error);
+        });
         if (res.code !== 200) {
           return this.$message.error('用户名或密码错误');
         }
