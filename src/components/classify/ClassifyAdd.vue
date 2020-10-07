@@ -17,62 +17,63 @@
 
 <script>
 export default {
-  inject:['reload'],
+  inject: ['reload'],
   data() {
     return {
       input: {
         id: 0,
-        name : ''
+        name: ''
       },
       pagger: {
-        current: 1,
-        size: 0,
-        total: 0
-      }
+        current: 1
+      },
+      addnewid: 0
     }
   },
-  created(){
+  created() {
     if (this.$route.params.id !== undefined) {
       this.input = this.$route.params;
     }
     this.queryListNum();
   },
-  methods:{
-    backtolist(){
+  methods: {
+    backtolist() {
       this.$router.push('/classifylist');
       this.reload();
     },
-    submitAddType(){
-      if(this.input.name.trim() === ''){
+    submitAddType() {
+      if (this.input.name.trim() === '') {
         this.$message.warning('请输入分类名称');
         return;
       }
-      this.input.id = this.pagger.total;
-      const addParam = this.input;
-      this.$axios.post('/addtypes',addParam).then((response)=>{
-        const {data} = response;
-        if(data.code === 200){
+      if (this.input.id === 0) {
+        this.input.id = this.addnewid;
+      }
+      const addParams = this.input;
+      this.$axios.post('/addtypes', addParams).then((response) => {
+        const { data } = response;
+        if (data.code === 200) {
           this.$message.success('添加成功');
           this.input.name = '';
-        }else{
+        } else {
           this.$message.error('添加失败，类名重复');
         }
-      }).catch((error)=>{
+      }).catch((error) => {
         this.$message.error('添加失败');
         console.log(error);
       })
       this.queryListNum();
     },
-    queryListNum(){
+    queryListNum() {
       let that = this;
-      const params = this.pagger;
-      this.$axios.post('/typeslist',params).then((response)=>{
-        const {data} = response;
-        that.pagger.total = data.data.totalElements + 1;
-        console.log(that.pagger.total);
-      }).catch((error)=>{
-        console.log(error);
-      })
+      this.$axios.get('/typeslist', { params: { currentPageNum: 1 } })
+        .then((response) => {
+          const { data } = response;
+          that.addnewid = data.data.totalElements + 1;
+          // console.log(that.pagger.total);
+        }).catch((error) => {
+          console.log(error);
+        })
     }
   }
 }

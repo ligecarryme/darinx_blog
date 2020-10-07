@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  inject:['reload'],
+  inject: ['reload'],
   data() {
     return {
       pagger: {
@@ -45,7 +45,7 @@ export default {
   methods: {
     editclassify(index, row) {
       // console.log(index, row);
-      this.$router.push({ name: 'classifyadd', params: { id: row.id, name: row.name }})
+      this.$router.push({ name: 'classifyadd', params: { id: row.id, name: row.name } })
       this.$message('编辑分类名称');
       this.reload();
     },
@@ -67,14 +67,15 @@ export default {
     },
     getList() {
       let that = this;
-      const pageParam = that.pagger;
-      this.$axios.post('/typeslist', pageParam).then((response) => {
-        const { data } = response;
-        that.tableData = data.data.content;
-        that.pagger.total = data.data.totalElements;
-      }).catch((error) => {
-        console.log(error)
-      })
+      const { current } = that.pagger;
+      this.$axios.get('/typeslist', { params: { currentPageNum: current } })
+        .then((response) => {
+          const { data } = response;
+          that.tableData = data.data.content;
+          that.pagger.total = data.data.totalElements;
+        }).catch((error) => {
+          console.log(error)
+        })
     },
     addNew() {
       this.$router.push('/classifyadd');

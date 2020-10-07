@@ -10,14 +10,14 @@
     </el-input>
     <div class="btns">
       <el-button type="info" size="small" @click="backtolist">返回</el-button>
-      <el-button type="success" size="small">提交</el-button>
+      <el-button type="success" size="small" @click="submitAddTag">提交</el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  inject:['reload'],
+  inject: ['reload'],
   data() {
     return {
       input: {
@@ -25,16 +25,55 @@ export default {
         name: ''
       },
       pagger: {
-        current: 1,
-        size: 0,
-        total: 0
-      }
+        current: 1
+      },
+      newid: 0
     }
   },
-  methods:{
-    backtolist(){
+  created() {
+    if (this.$route.params.id !== undefined) {
+      this.input = this.$route.params;
+    }
+    this.queryListNum();
+  },
+  methods: {
+    backtolist() {
       this.$router.push('/labellist');
       this.reload();
+    },
+    queryListNum() {
+      let that = this;
+      this.$axios.get('/tagslist', { params: { currentPageNum: 1 } })
+        .then((response) => {
+          const { data } = response;
+          that.newid = data.data.totalElements + 1;
+        }).catch((error) => {
+          console.log(error);
+        })
+    },
+    submitAddTag() {
+      if (this.input.name.trim() === '') {
+        this.$message.warning('请输入标签名称');
+        return;
+      }
+      if (this.input.id === 0) {
+        this.input.id = this.newid;
+      }
+      const addParams = this.input;
+      this.$axios.post('/addtag', addParams)
+        .then((response) => {
+          const { data } = response;
+          if (data.code === 200) {
+            this.$message.success('添加成功');
+            this.input.name = '';
+          } else {
+            this.$message.error('添加失败，类名重复');
+          }
+        }).catch((error) => {
+          this.$message.error('添加失败');
+          console.log(error);
+        })
+      this.queryListNum();
     }
   }
 }
