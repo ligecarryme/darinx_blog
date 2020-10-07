@@ -9,28 +9,24 @@
       <el-select v-model="select" slot="prepend" placeholder="请选择">
         <el-option label="原创" value="1"></el-option>
         <el-option label="转载" value="2"></el-option>
+        <el-option label="翻译" value="3"></el-option>
       </el-select>
     </el-input>
-    <!-- <el-input
-      type="textarea"
-      :autosize="{ minRows: 8 }"
-      placeholder="请输入博客内容"
-      v-model="textarea"
-      style="margin-top:1em;"
-    ></el-input> -->
     <div class="editorMd pt-1">
-       <mavon-editor :ishljs="true" v-model="textarea" style="min-height:500px"></mavon-editor>
+      <mavon-editor :ishljs="true" v-model="textarea" style="min-height:500px"></mavon-editor>
     </div>
     <div class="tagsandclassify pt-1">
-      <el-input placeholder="请输入内容" v-model="tagsinput" style="width:49%">
-        <template slot="prepend">分类</template>
-      </el-input>
-      <el-input placeholder="请输入内容" v-model="classifyinput" style="width:49%">
-        <template slot="prepend">标签</template>
-      </el-input>
+      <el-select v-model="typeselect" clearable style="width:49%" placeholder="请选择类型">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+      <el-select v-model="tagselect" multiple clearable style="width:49%" placeholder="请选择标签">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
     </div>
-    <el-input placeholder="请输入内容" v-model="classifyinput" class="pt-1">
-      <template slot="prepend">首图</template>
+    <el-input placeholder="请输入链接" v-model="firstpic" class="pt-1">
+      <template slot="prepend">首图链接</template>
     </el-input>
     <div class="pt-1">
       <el-checkbox-group v-model="checkList">
@@ -55,9 +51,15 @@ export default {
       input: '',
       select: '1',
       textarea: '',
-      tagsinput: '',
-      classifyinput: '',
+      tagselect: [],
+      typeselect: '',
       checkList: ['推荐'],
+      firstpic: '',
+      options: [
+        { value: '选项1', label: '黄金糕' },
+        { value: '选项2', label: '双皮奶' },
+        { value: '选项3', label: '蚵仔煎' }
+      ],
     }
   },
 }

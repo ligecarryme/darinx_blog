@@ -8,18 +8,21 @@
     <!-- 卡片视图区域 -->
     <el-card>
       <!-- 搜索添加区域 -->
-      <el-row>
-        <el-col :xs="24" :sm="16" :md="12" :lg="8">
-          <el-input placeholder="请输入内容" class="input-with-select" v-model="input" clearable>
+      <el-row type="flex">
+        <el-col :xs="24" :sm="24" :lg="12">
+          <el-input placeholder="请输入标题" class="input-with-select" v-model="input" clearable>
             <el-select v-model="select" slot="prepend" placeholder="请选择">
               <el-option label="练习清单" value="1"></el-option>
               <el-option label="基础知识" value="2"></el-option>
             </el-select>
-            <el-button slot="append" icon="el-icon-search"></el-button>
+            <el-checkbox v-model="recommend" slot="append">推荐</el-checkbox>
           </el-input>
         </el-col>
+        <el-col>
+          <el-button icon="el-icon-search" type="primary" style="margin-left:1em;">搜索</el-button>          
+        </el-col>
       </el-row>
-      <!-- 博客列表 -->
+      <!-- 博客列表  局部渲染表格-->
       <div class="bloglisttable">
         <el-table :data="tableData" stripe border style="width: 100%">
           <el-table-column type="index"></el-table-column>
@@ -37,12 +40,10 @@
         <!-- 分页 -->
         <div class="block">
           <el-pagination
-            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="pagenum"
-            :page-sizes="[2, 6, 12]"
-            :page-size="6"
-            layout="total, sizes, prev, pager, next, jumper"
+            :page-size="8"
+            layout="total, prev, pager, next, jumper"
             :total="24"
           ></el-pagination>
           <el-button type="success" plain size="small">新增</el-button>
@@ -59,6 +60,7 @@ export default {
       select: '',
       input: '',
       pagenum: 1,
+      recommend: true,
       tableData: [
         {
           title: 'Java实战',
@@ -82,18 +84,6 @@ export default {
     }
   },
   methods: {
-    // async getBlogList() {
-    //   const { data: res } = await this.$http.get("blogs", {
-    //     params: this.queryinfo,
-    //   });
-    //   if (res.meta.status != 200) {
-    //     return this.$message.error("获取博客列表失败");
-    //   }
-    //   console.log(res);
-    // },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
-    },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`)
     },
