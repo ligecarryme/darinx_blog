@@ -19,7 +19,7 @@
           </el-input>
         </el-col>
         <el-col>
-          <el-button icon="el-icon-search" type="primary" style="margin-left:1em;">搜索</el-button>          
+          <el-button icon="el-icon-search" type="primary" style="margin-left:1em;">搜索</el-button>
         </el-col>
       </el-row>
       <!-- 博客列表  局部渲染表格-->
@@ -39,14 +39,8 @@
         </el-table>
         <!-- 分页 -->
         <div class="block">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="pagenum"
-            :page-size="8"
-            layout="total, prev, pager, next, jumper"
-            :total="24"
-          ></el-pagination>
-          <el-button type="success" plain size="small">新增</el-button>
+          <el-pagination @current-change="handleCurrentChange" :current-page="pagenum" :page-size="8" layout="total, prev, pager, next, jumper" :total="24"></el-pagination>
+          <el-button type="success" plain size="small" @click="addnew">新增</el-button>
         </div>
       </div>
     </el-card>
@@ -55,15 +49,21 @@
 
 <script>
 export default {
+  inject: ['reload'],
   data() {
     return {
       select: '',
       input: '',
       pagenum: 1,
+      pagetotal: 0,
       recommend: true,
       tableData: [
         {
+          id: 0,
+          flag: '',
           title: 'Java实战',
+          content: '',
+          
           recommend: '是',
           status: '草稿',
           date: '2020-9-19 17：33',
@@ -83,11 +83,31 @@ export default {
       ],
     }
   },
+  created() {
+    this.querybloglist();
+  },
   methods: {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`)
     },
+    addnew(){
+      this.$router.push('/blogpublish');
+      this.reload();
+    },
+    querybloglist() {
+      let that = this;
+      this.$axios.get('/bloglist',{params: {currentPage: that.pagenum}}).then((res)=>{
+        const {data} = res;
+        if (data.code === 200) {
+          
+        }
+        console.log(res);
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }
   },
+
 }
 </script>
 

@@ -22,3 +22,9 @@ body,
 .pt-1{
   margin-top: 1em;
 }
+.pl-1{
+  margin-left: 1em;
+}
+.pl-2{
+  margin-left: 4em;
+}
