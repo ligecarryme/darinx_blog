@@ -11,7 +11,7 @@
       <el-row type="flex">
         <el-col :xs="24" :sm="24" :lg="12">
           <el-input placeholder="请输入标题" class="input-with-select" v-model="search.title" clearable>
-            <el-select v-model="search.type" slot="prepend" placeholder="请选择">
+            <el-select v-model="search.type" slot="prepend" placeholder="类型" style="width:80px">
               <el-option v-for="item in typelist" :key="item.id" :label="item.name" :value="item.id">
               </el-option>
             </el-select>
@@ -88,6 +88,7 @@ export default {
   },
   created() {
     this.querybloglist();
+    this.querytype();
   },
   methods: {
     handleCurrentChange(val) {
@@ -159,11 +160,32 @@ export default {
       return content;
     },
     editblog(index, row) {
-      console.log(index, row)
+      const editparam = {
+        id: row.id,
+        flag: row.flag,
+        title: row.title,
+        content: row.content,
+        typeid: row.type.id,
+        tagsid: this.handletags(row.tags),
+        firstPicture: row.firstPicture,
+        recommend: row.recommend,
+        shareStatement: row.shareStatement,
+        appreciation: row.appreciation,
+        commentabled: row.commentabled,
+        published: row.published
+      }
+      this.$router.push({name:'blogpublish',params:editparam})
+      this.$message({
+        message: '编辑博客',
+        duration: 1500
+      })
+      console.log(editparam);
+      this.reload();
+      // console.log(index, row)
     },
     deleteblog(index, row) {
       let that = this;
-      that.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      that.$confirm('此操作将永久删除该博客, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -187,7 +209,24 @@ export default {
     },
     indexMethod(index) {
       return (this.pagenum - 1) * 8 + index + 1;
-    }
+    },
+    handletags(tags){
+      let arr = [];
+      for (let item of tags) {
+        arr.push(item.id);
+      }
+      return arr;
+    },
+    querytype() {
+      let that = this;
+      this.$axios.get('/getTypes').then((res) => {
+        // console.log(res);
+        const { data } = res;
+        that.typelist = data.data;
+      }).catch((err) => {
+        console.log(err);
+      })
+    },
   },
 }
 </script>
