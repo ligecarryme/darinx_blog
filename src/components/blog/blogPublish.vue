@@ -22,7 +22,7 @@
         </el-option>
       </el-select>
       <div class="prepend">博客标签</div>
-      <el-select v-model="blog.tagsid" multiple clearable style="width:40%" placeholder="请选择标签">
+      <el-select v-model="blog.tagsid" multiple clearable filterable style="width:40%" placeholder="请选择标签">
         <el-option v-for="item in taglist" :key="item.id" :label="item.name" :value="item.id">
         </el-option>
       </el-select>

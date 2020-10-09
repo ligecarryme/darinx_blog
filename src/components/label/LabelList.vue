@@ -53,19 +53,30 @@ export default {
     deltag(index, row) {
       // console.log(index, row);
       let that = this;
-      this.$axios.get('/deletetag/' + row.id)
-        .then((response) => {
-          const { data } = response;
-          if (data.code === 200) {
-            that.tableData.splice(index, 1);
-            this.$message.success('删除成功');
-          } else {
-            this.$message.error('删除失败');
-          }
-        }).catch((error) => {
-          console.log(error);
-        })
-      this.$message('删除信息')
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        that.$axios.get('/deletetag/' + row.id)
+          .then((response) => {
+            const { data } = response;
+            if (data.code === 200) {
+              that.tableData.splice(index, 1);
+              this.$message.success('删除成功');
+            } else {
+              this.$message.error('删除失败');
+            }
+          }).catch((error) => {
+            console.log(error);
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+
     },
     addNew() {
       this.$router.push('/labeladd');
