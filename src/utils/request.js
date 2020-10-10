@@ -6,7 +6,7 @@ import Vueaxios from 'vue-axios'
 axios.defaults.baseURL = "http://localhost:8079/admin";
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.withCredentials= true;
+axios.defaults.withCredentials = true;
 
 // const instance = axios.create({
 //     baseURL: 'http://localhost:8079/admin',
