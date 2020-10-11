@@ -195,6 +195,7 @@ export default {
           if (data.code === 200) {
             that.blogtableData.splice(index, 1);
             that.$message.success('删除成功');
+            that.reload();
           } else {
             that.$message.error('删除失败');
           }

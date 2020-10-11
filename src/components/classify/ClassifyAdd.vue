@@ -34,7 +34,7 @@ export default {
     if (this.$route.params.id !== undefined) {
       this.input = this.$route.params;
     }
-    this.queryListNum();
+    // this.queryListNum();
   },
   methods: {
     backtolist() {
@@ -46,9 +46,9 @@ export default {
         this.$message.warning('请输入分类名称');
         return;
       }
-      if (this.input.id === 0) {
-        this.input.id = this.addnewid;
-      }
+      // if (this.input.id === 0) {
+      //   this.input.id = this.addnewid;
+      // }
       const addParams = this.input;
       this.$axios.post('/addtypes', addParams).then((response) => {
         const { data } = response;
@@ -62,7 +62,7 @@ export default {
         this.$message.error('添加失败');
         console.log(error);
       })
-      this.queryListNum();
+      // this.queryListNum();
     },
     queryListNum() {
       let that = this;

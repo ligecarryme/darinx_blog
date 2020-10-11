@@ -7,7 +7,7 @@
     </el-breadcrumb>
     <el-card>
       <el-table :data="tableData" border stripe style="width: 100%">
-        <el-table-column prop="id" label="ID" width="80"></el-table-column>
+        <el-table-column type="index" label="ID" width="80" :index="indexMethod"></el-table-column>
         <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column label="操作">
           <template v-slot='scope'>
@@ -63,6 +63,7 @@ export default {
             if (data.code === 200) {
               that.tableData.splice(index, 1);
               this.$message.success('删除成功');
+              that.reload();
             } else {
               this.$message.error('删除失败')
             }
@@ -95,6 +96,9 @@ export default {
     handleCurrentChange(val) {
       this.pagger.current = val;
       this.getList();
+    },
+    indexMethod(index) {
+      return (this.pagger.current - 1) * 8 + index + 1;
     }
   }
 }
