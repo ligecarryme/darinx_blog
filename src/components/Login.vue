@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
+// import md5 from 'js-md5'
 export default {
   data() {
     return {
@@ -43,20 +45,22 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['changeLogin']),
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
     },
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return;
+        // this.loginForm.password = md5(this.loginForm.password)
         const { data: res } = await this.$axios.post("/login", this.loginForm).catch((error)=>{
           console.log(error);
         });
         if (res.code !== 200) {
           return this.$message.error('用户名或密码错误');
         }
-        window.sessionStorage.setItem('user',res.message);
-        console.log(window.sessionStorage.getItem('user'));
+        this.changeLogin({Authorization : res.data.token});
+        // window.sessionStorage.setItem('user',res.message);
         this.$message({
           type: "success",
           message: "登录成功",

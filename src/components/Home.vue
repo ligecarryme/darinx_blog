@@ -10,15 +10,7 @@
             </span>
           </div>
           <div class="menu-header">
-            <el-menu
-              :default-active="activeIndexheader"
-              class="el-menu-demo"
-              mode="horizontal"
-              @select="handleSelectVertical"
-              background-color="#303643"
-              text-color="#D8D8D8"
-              active-text-color="#ffffff"
-            >
+            <el-menu :default-active="activeIndexheader" class="el-menu-demo" mode="horizontal" @select="handleSelectVertical" background-color="#303643" text-color="#D8D8D8" active-text-color="#ffffff">
               <!--router  route="/bloglist"  route="/labellist" route="/classifylist" -->
               <el-menu-item index="blog">博客管理</el-menu-item>
               <el-menu-item index="label">标签管理</el-menu-item>
@@ -34,14 +26,7 @@
       <el-container>
         <!-- 侧边栏 @select="handleSelectHorizontal"-->
         <el-aside style="width:220px;">
-          <el-menu
-            :default-active="activeIndexAside"
-            class="el-menu-vertical-demo"
-            background-color="#545c64"
-            text-color="#fff"
-            active-text-color="#ffd04b"
-            router
-          >
+          <el-menu :default-active="activeIndexAside" class="el-menu-vertical-demo" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" router>
             <div v-show="sideBarid == 'blog'">
               <el-menu-item index="/bloglist">
                 <i class="el-icon-tickets"></i>
@@ -100,8 +85,12 @@ export default {
   },
   methods: {
     logout() {
-      this.$axios.get("/logout");
-      window.sessionStorage.clear();
+      this.$axios.get("/logout").then(res=>{
+        if (res) {
+          localStorage.removeItem('Authorization');
+        }
+      })
+      // window.sessionStorage.clear();
       this.$message.success('注销成功');
       this.$router.push('/login');
     },
@@ -109,17 +98,13 @@ export default {
       this.sideBarid = keyPath
       // console.log('Vertical' + key, keyPath)
     },
-    // handleSelectHorizontal(key, keyPath) {
-    //   this.activeIndexAside = keyPath;
-    //   console.log('Horizontal' + key, keyPath)
-    // },
   },
 }
 </script>
 
 <style lang="less" scoped>
 .el-main {
-  background: url('../assets/bg.png');
+  background: url("../assets/bg.png");
 }
 .el-menu-demo {
   height: 60px !important;

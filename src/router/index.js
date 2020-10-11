@@ -43,8 +43,8 @@ const router = new Router({
 // 路由导航守卫
 router.beforeEach((to, from, next) => {
     if (to.path === '/login') return next();
-    const tokenStr = window.sessionStorage.getItem('user');
-    if (!tokenStr) return next('/login');
+    let token = localStorage.getItem('Authorization');
+    if (!token) return next('/login');
     next();
 })
 

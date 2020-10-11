@@ -8,13 +8,17 @@ import './assets/css/globel.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-import './utils/request.js'
+import store from './store'
+import service from './utils/request.js'
 
 Vue.config.productionTip = false
+Vue.prototype.$axios = service
+
 Vue.use(Element)
 Vue.use(mavonEditor)
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
