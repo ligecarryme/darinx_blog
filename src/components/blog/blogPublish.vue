@@ -30,6 +30,8 @@
     <el-input placeholder="请输入链接" v-model="blog.firstPicture" class="pt-1">
       <template slot="prepend">首图链接</template>
     </el-input>
+    <el-input type="textarea" :autosize="{ minRows: 4 }" placeholder="请输入博客简介" v-model="blog.description" class="pt-1">
+    </el-input>
     <div class="pt-1">
       <el-checkbox label="推荐" v-model="blog.recommend"></el-checkbox>
       <el-checkbox label="转载声明" v-model="blog.shareStatement"></el-checkbox>
@@ -57,11 +59,13 @@ export default {
         typeid: '',
         tagsid: [],
         firstPicture: '',
+        description:'',
         recommend: true,
         shareStatement: false,
         appreciation: true,
         commentabled: true,
-        published: true
+        published: true,
+        username: 'admin'
       },
       typelist: [
         { id: '1', name: '学习' },
@@ -80,7 +84,7 @@ export default {
     if (this.$route.params.id !== undefined) {
       this.blog = this.$route.params;
     }
-  },                                                          
+  },
   methods: {
     backtolist() {
       this.$router.push('/bloglist');
@@ -109,49 +113,49 @@ export default {
     savetodraft() {
       const param = {
         ...this.blog,
-        tagsid : this.handletags(this.blog.tagsid),
-        typeid : parseInt(this.blog.typeid),
-        published : false
+        tagsid: this.handletags(this.blog.tagsid),
+        typeid: parseInt(this.blog.typeid),
+        published: false
       }
       if (this.chacknotnull(param) === false) {
         return;
       }
-      this.$axios.post('/addblog',param).then((res)=>{
+      this.$axios.post('/addblog', param).then((res) => {
         // console.log(res);
-        if(res.data.code === 200){
+        if (res.data.code === 200) {
           this.$message.success('保存成功');
-        }else{
+        } else {
           this.$message.warning('保存失败，请填必属字段');
         }
-      }).catch((err)=>{
+      }).catch((err) => {
         console.log(err);
       })
     },
     publish() {
       const param = {
         ...this.blog,
-        tagsid : this.handletags(this.blog.tagsid),
-        typeid : parseInt(this.blog.typeid),
+        tagsid: this.handletags(this.blog.tagsid),
+        typeid: parseInt(this.blog.typeid),
       }
       if (this.chacknotnull(param) === false) {
         return;
       }
-      this.$axios.post('/addblog',param).then((res)=>{
+      this.$axios.post('/addblog', param).then((res) => {
         // console.log(res);
-        if(res.data.code === 200){
+        if (res.data.code === 200) {
           this.$message.success('保存成功');
-        }else{
+        } else {
           this.$message.warning('保存失败，请填必属字段');
         }
-      }).catch((err)=>{
+      }).catch((err) => {
         console.log(err);
       })
     },
-    handletags(tags){
+    handletags(tags) {
       let listToStr = tags + "";
       return listToStr;
     },
-    chacknotnull(param){
+    chacknotnull(param) {
       if (param.title.trim() === '') {
         this.$message.warning('标题不能为空');
         return false;
@@ -194,7 +198,7 @@ export default {
   color: #909399;
   padding: 10px 20px;
   font-size: 14px;
-  border: 1px solid #DCDFE6;
+  border: 1px solid #dcdfe6;
   white-space: nowrap;
 }
 </style>

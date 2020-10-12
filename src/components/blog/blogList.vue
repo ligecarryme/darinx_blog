@@ -62,19 +62,19 @@ export default {
       },
       blogtableData: [
         {
-          title: 'Java实战',
+          title: 'Java概述',
           isrecommend: '是',
           status: '草稿',
           updateTime: '2020-9-19 17：33',
         },
         {
-          title: 'JavaScript实战',
+          title: 'JavaScript入门',
           isrecommend: '是',
           status: '正文',
           updateTime: '2020-9-19 21：00',
         },
         {
-          title: 'VUE实战',
+          title: 'VUE基础',
           isrecommend: '是',
           status: '正文',
           updateTime: '2020-9-19 21：10',
@@ -135,6 +135,7 @@ export default {
         if (data.code === 200 && data.data.content.length > 0) {
           that.blogtableData = that.handleBlogContent(data.data.content);
           that.pagetotal = data.data.totalElements;
+          // console.log(that.blogtableData)
         } else {
           this.$message.warning('未查询到')
         }
@@ -172,14 +173,15 @@ export default {
         shareStatement: row.shareStatement,
         appreciation: row.appreciation,
         commentabled: row.commentabled,
-        published: row.published
+        published: row.published,
+        description: row.description,
+        username: row.user.username
       }
       this.$router.push({name:'blogpublish',params:editparam})
       this.$message({
         message: '编辑博客',
         duration: 1500
       })
-      console.log(editparam);
       this.reload();
       // console.log(index, row)
     },
