@@ -155,8 +155,8 @@ export default {
         } else {
           item.isrecommend = '否';
         }
-        const formatdate = item.updateTime.split(/[T.]/);
-        item.updateTime = formatdate[0] + ' ' + formatdate[1];
+        // const formatdate = item.updateTime.split(/[T.]/);
+        // item.updateTime = formatdate[0] + ' ' + formatdate[1];
       }
       return content;
     },

@@ -136,6 +136,7 @@ export default {
         ...this.blog,
         tagsid: this.handletags(this.blog.tagsid),
         typeid: parseInt(this.blog.typeid),
+        published: true
       }
       if (this.chacknotnull(param) === false) {
         return;
