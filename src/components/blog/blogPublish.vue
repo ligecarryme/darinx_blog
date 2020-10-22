@@ -7,13 +7,13 @@
     </el-breadcrumb>
     <el-input placeholder="请输入标题" v-model="blog.title" class="input-with-select">
       <el-select v-model="blog.flag" slot="prepend" placeholder="请选择">
-        <el-option label="原创" value="1"></el-option>
-        <el-option label="转载" value="2"></el-option>
-        <el-option label="翻译" value="3"></el-option>
+        <el-option label="原创" value="原创"></el-option>
+        <el-option label="转载" value="转载"></el-option>
+        <el-option label="翻译" value="翻译"></el-option>
       </el-select>
     </el-input>
-    <div class="editorMd pt-1">
-      <mavon-editor :ishljs="true" v-model="blog.content" style="min-height:500px"></mavon-editor>
+    <div class="editormd pt-1">
+      <mavon-editor :ishljs="true" :scrollStyle="true" v-model="blog.content" style="min-height:500px"></mavon-editor>
     </div>
     <div class="tagsandclassify pt-1">
       <div class="prepend">博客类型</div>
@@ -45,7 +45,6 @@
     </el-row>
   </div>
 </template>
-
 <script>
 export default {
   inject: ['reload'],
@@ -59,7 +58,7 @@ export default {
         typeid: '',
         tagsid: [],
         firstPicture: '',
-        description:'',
+        description: '',
         recommend: true,
         shareStatement: false,
         appreciation: true,
@@ -85,6 +84,11 @@ export default {
       this.blog = this.$route.params;
     }
   },
+  // watch: {
+  //   'blog.flag': function (val, oldVal) {
+  //     console.log('new: %s, old: %s', val, oldVal)
+  //   }
+  // },
   methods: {
     backtolist() {
       this.$router.push('/bloglist');
@@ -125,7 +129,7 @@ export default {
         if (res.data.code === 200) {
           this.$message.success('保存成功');
         } else {
-          this.$message.warning('保存失败，请填必属字段');
+          this.$message.error('保存失败');
         }
       }).catch((err) => {
         console.log(err);
@@ -146,7 +150,7 @@ export default {
         if (res.data.code === 200) {
           this.$message.success('保存成功');
         } else {
-          this.$message.warning('保存失败，请填必属字段');
+          this.$message.error('保存失败');
         }
       }).catch((err) => {
         console.log(err);
@@ -201,5 +205,10 @@ export default {
   font-size: 14px;
   border: 1px solid #dcdfe6;
   white-space: nowrap;
+}
+.add_container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
