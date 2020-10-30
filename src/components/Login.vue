@@ -24,13 +24,13 @@
 
 <script>
 import {mapMutations} from 'vuex';
-// import md5 from 'js-md5'
+import md5 from 'js-md5'
 export default {
   data() {
     return {
       loginForm: {
         username: "admin",
-        password: "123456",
+        password: "",
       },
       logingFormRules: {
         username: [
@@ -52,8 +52,12 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return;
-        // this.loginForm.password = md5(this.loginForm.password)
-        const { data: res } = await this.$axios.post("/login", this.loginForm).catch((error)=>{
+        const loginparam = {
+          username: this.loginForm.username,
+          password: md5(this.loginForm.password)
+        }
+        // console.log(loginparam);
+        const { data: res } = await this.$axios.post("/login", loginparam).catch((error)=>{
           console.log(error);
         });
         if (res.code !== 200) {
