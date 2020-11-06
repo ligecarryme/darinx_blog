@@ -64,7 +64,7 @@ export default {
           return this.$message.error('用户名或密码错误');
         }
         this.changeLogin({Authorization : res.data.token});
-        // window.sessionStorage.setItem('user',res.message);
+        window.sessionStorage.setItem('user',loginparam.username);
         this.$message({
           type: "success",
           message: "登录成功",

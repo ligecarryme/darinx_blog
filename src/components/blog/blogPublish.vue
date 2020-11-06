@@ -89,6 +89,9 @@ export default {
   //     console.log('new: %s, old: %s', val, oldVal)
   //   }
   // },
+  mounted(){
+    // console.log(window.sessionStorage.getItem('user'));
+  },
   methods: {
     backtolist() {
       this.$router.push('/bloglist');
@@ -119,7 +122,8 @@ export default {
         ...this.blog,
         tagsid: this.handletags(this.blog.tagsid),
         typeid: parseInt(this.blog.typeid),
-        published: false
+        published: false,
+        username: window.sessionStorage.getItem('user')
       }
       if (this.chacknotnull(param) === false) {
         return;
@@ -140,8 +144,10 @@ export default {
         ...this.blog,
         tagsid: this.handletags(this.blog.tagsid),
         typeid: parseInt(this.blog.typeid),
-        published: true
+        published: true,
+        username: window.sessionStorage.getItem('user')
       }
+      console.log(param);
       if (this.chacknotnull(param) === false) {
         return;
       }
