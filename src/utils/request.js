@@ -11,7 +11,7 @@ import axios from 'axios'
 // Vue.use(axios)
 
 const service = axios.create({
-    baseURL: 'http://localhost:8079/admin',
+    baseURL: 'http://47.102.214.242:8079/admin',
     timeout: 12000,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',

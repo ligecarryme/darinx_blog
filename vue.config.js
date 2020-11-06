@@ -2,7 +2,8 @@ module.exports = {
     devServer: {
         proxy: {
             '/api':{
-                target: 'http://localhost:8079',
+                // localhost
+                target: 'http://47.102.214.242:8079/admin/',
                 ws: true,
                 changeOrigin: true,
                 pathRewrite:{
@@ -11,5 +12,6 @@ module.exports = {
             }
         }
     },
-    publicPath: '/admin',
+    publicPath: './',
+    outputDir: 'dist'
 }

@@ -57,8 +57,8 @@ export default {
         content: '',
         typeid: '',
         tagsid: [],
-        firstPicture: '',
-        description: 'https://picsum.photos/500',
+        firstPicture: 'https://picsum.photos/seed/100/500',
+        description: '',
         recommend: true,
         shareStatement: true,
         appreciation: true,
@@ -179,6 +179,10 @@ export default {
       }
       if (param.firstPicture === '') {
         this.$message.warning('首图地址不能为空');
+        return false;
+      }
+      if (param.description === '') {
+        this.$message.warning('简述不能为空，可复制部分文章内容');
         return false;
       }
     }
