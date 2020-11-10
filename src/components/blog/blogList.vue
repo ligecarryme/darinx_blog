@@ -11,7 +11,7 @@
       <el-row type="flex">
         <el-col :xs="24" :sm="24" :lg="12">
           <el-input placeholder="请输入标题" class="input-with-select" v-model="search.title" clearable>
-            <el-select v-model="search.type" slot="prepend" placeholder="类型" style="width:80px">
+            <el-select v-model="search.type" slot="prepend" placeholder="类型" style="width:105px">
               <el-option v-for="item in typelist" :key="item.id" :label="item.name" :value="item.id">
               </el-option>
             </el-select>
