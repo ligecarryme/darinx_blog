@@ -15,10 +15,10 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+博客管理系统
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<img src="https://github.com/ligecarryme/darinx_blog/blob/master/img/bloglist.png" style="zoom:67%;" align="left"/>
+
+<img src="https://github.com/ligecarryme/darinx_blog/blob/master/img/blogpublish.png" style="zoom:67%;" align="left"/>
+
+<img src="https://github.com/ligecarryme/darinx_blog/blob/master/img/typelist.png" style="zoom:67%;" align="left"/>
